@@ -17,6 +17,8 @@ protocol ExploreImagesDisplayLogic: AnyObject {
 class ExploreImagesViewController: UIViewController, ExploreImagesDisplayLogic, UISearchControllerDelegate {
     
     @IBOutlet weak var searchResultsCollectionView: UICollectionView!
+    private var suggestionsTableViewController: SuggestionsTableViewController!
+
     var searchController : UISearchController!
     var interactor: ExploreImagesBusinessLogic?
     var router: (NSObjectProtocol & ExploreImagesRoutingLogic & ExploreImagesDataPassing)?
@@ -70,8 +72,12 @@ class ExploreImagesViewController: UIViewController, ExploreImagesDisplayLogic, 
     // MARK: View Logic
     func setupSearchController()
     {
-        searchController = UISearchController(searchResultsController:  nil)
+        suggestionsTableViewController =
+            self.storyboard?.instantiateViewController(withIdentifier: "SuggestionsTableViewController") as? SuggestionsTableViewController
+        suggestionsTableViewController.tableView.delegate = self
+        searchController = UISearchController(searchResultsController: suggestionsTableViewController)
         searchController.delegate = self
+        searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.autocapitalizationType = .none
@@ -82,6 +88,9 @@ class ExploreImagesViewController: UIViewController, ExploreImagesDisplayLogic, 
     
     func reloadCollectionView() {
         DispatchQueue.main.async { [weak self] in
+            if self?.router?.dataStore?.pagenumber == 1 && self?.router?.dataStore?.searchResultsArray?.count ?? 0 > 0 {
+                self?.searchResultsCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: false)
+            }
             self?.searchResultsCollectionView.reloadData()
         }
     }
@@ -122,3 +131,19 @@ extension ExploreImagesViewController : UISearchBarDelegate
     }
 }
 
+
+
+extension ExploreImagesViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let suggestion = suggestionsTableViewController.suggestions.reversed()[indexPath.row]
+        searchController.searchBar.resignFirstResponder()
+        interactor?.getDataFromPixabay(forSearchText: suggestion)
+        searchController.isActive = false
+        searchController.isEditing = false
+        searchController.searchBar.text = suggestion
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+}

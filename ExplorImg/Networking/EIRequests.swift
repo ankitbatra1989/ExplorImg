@@ -17,7 +17,7 @@ extension EIRequest: EIURLRequestProtocol {
         switch self {
         case .searchPixabayForImagesWith(let searchText, let pageNumber):
             let endPoint = "\(EINetworkingConstants.HOST)/api/"
-            let parameters = ["key": "18845187-c6b9454035cf7da433297032c",
+            let parameters = ["key": EINetworkingConstants.API_KEY,
                               "q": searchText,
                               "image_type": "photo",
                               "per_page": "20",

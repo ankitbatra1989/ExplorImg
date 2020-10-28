@@ -22,7 +22,7 @@ public class DownloadOperation: AsynchronousOperation {
                 self.completeOperation()
             }
             guard error == nil && temporaryURL != nil else {
-                print("error downloading image")
+                print("Error downloading image")
                 return
             }
             

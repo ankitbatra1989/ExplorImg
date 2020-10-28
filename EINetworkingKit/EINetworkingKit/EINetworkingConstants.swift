@@ -8,5 +8,7 @@
 import Foundation
 
 public struct EINetworkingConstants {
-    public static var HOST                = "https://pixabay.com"    
+    public static var HOST                = "https://pixabay.com"
+    public static let API_KEY             = "18845187-c6b9454035cf7da433297032c"
+
 }

@@ -24,6 +24,7 @@ protocol ExploreImagesDataStore {
     var pagenumber: Int { get set }
     var isLoadingNewData: Bool { get set }
     var selectedIndex: Int { get set }
+    var successfullySearchedStrings: [String] { get set }
 
 }
 
@@ -32,9 +33,10 @@ class ExploreImagesInteractor: ExploreImagesBusinessLogic, ExploreImagesDataStor
     var presenter: ExploreImagesPresentationLogic?
     var worker: ExploreImagesWorker?
     var searchResultsArray : [ImageDataModel]?
-    var pagenumber: Int = -1
+    var pagenumber: Int = 0
     var isLoadingNewData: Bool = false
     var currentSearchbarText: String?
+    var successfullySearchedStrings: [String] = []
 
     
     // MARK: Business Logic
@@ -45,7 +47,6 @@ class ExploreImagesInteractor: ExploreImagesBusinessLogic, ExploreImagesDataStor
         }
         if let searchbarText = searchText {
             // called for a new search
-            searchResultsArray?.removeAll()
             worker?.cancelAllOperations()
             pagenumber = 0
             currentSearchbarText = searchbarText
@@ -57,14 +58,18 @@ class ExploreImagesInteractor: ExploreImagesBusinessLogic, ExploreImagesDataStor
         isLoadingNewData = true
         //
         worker = ExploreImagesWorker()
-        worker?.searchPixabayForImagesWith(keyword: currentSearchbarText,pageNumber: pagenumber, { [weak self] (result) in
+        worker?.searchPixabayForImagesWith(keyword: currentSearchbarText,pageNumber: pagenumber, { [weak self, pagenumber] (result) in
             guard let imagesArrayData = try? result.get(), let imagesArray = imagesArrayData.hits, !imagesArray.isEmpty else {
                     // API Error - Try again or show error
                 print("Error fetching images from Pixabay")
                 self?.presenter?.showError()
                 return
             }
-            print(imagesArray)
+            print("Images Fetched from Pixabay \n \(imagesArray)")
+            if pagenumber == 1 {
+                self?.searchResultsArray?.removeAll()
+                self?.successfullySearchedStrings.append(currentSearchbarText)
+            }
             self?.searchResultsArray?.append(contentsOf: imagesArray)
             self?.isLoadingNewData = false
             self?.presenter?.reloadCollectionView()
@@ -74,7 +79,7 @@ class ExploreImagesInteractor: ExploreImagesBusinessLogic, ExploreImagesDataStor
     func getImage(for imageData: ImageDataModel?, indexPath: IndexPath) {
         if let imageURLString = imageData?.previewURL, !imageURLString.isEmpty {
             worker?.startOperationsForImage(imageUrl: imageURLString, indexPath: indexPath as NSIndexPath, { [weak self, weak imageData] (isDownloadComplete) in
-                    print(isDownloadComplete)
+                print("Preview ImageDownload Complete for index \(indexPath.item)")
                     if isDownloadComplete {
                         imageData?.imageState = .Downloaded
                         self?.presenter?.reloadItems(at: [indexPath])
@@ -98,7 +103,7 @@ class ExploreImagesInteractor: ExploreImagesBusinessLogic, ExploreImagesDataStor
             }
             catch
             {
-                NSLog("Error")
+                NSLog("Error getting image fom cache")
             }
         }
         return nil
@@ -127,7 +132,7 @@ class ExploreImagesInteractor: ExploreImagesBusinessLogic, ExploreImagesDataStor
             let imageDetails = self.searchResultsArray![indexPathObject.row]
                 worker?.startOperationsForImage(imageUrl: imageDetails.previewURL, indexPath: indexPath, {
                     [weak self, weak imageDetails, indexPath] (isDownloadComplete) in
-                    print(isDownloadComplete)
+                    print("Preview ImageDownload Complete for index \(indexPath.item)")
                     if isDownloadComplete {
                         imageDetails?.imageState = .Downloaded
                         self?.presenter?.reloadItems(at: [indexPath as IndexPath])

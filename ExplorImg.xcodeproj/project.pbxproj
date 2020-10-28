@@ -33,6 +33,8 @@
 		F36AB4C8254550EB008A7D0A /* ExploreImagesModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36AB4C2254550EB008A7D0A /* ExploreImagesModels.swift */; };
 		F36AB4C9254550EB008A7D0A /* ExploreImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36AB4C3254550EB008A7D0A /* ExploreImagesViewController.swift */; };
 		F36AB4CA254550EB008A7D0A /* ExploreImagesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F36AB4C4254550EB008A7D0A /* ExploreImagesInteractor.swift */; };
+		F3A458992548F53B0050F9A5 /* SuggestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A458982548F53B0050F9A5 /* SuggestionsTableViewController.swift */; };
+		F3A4589F2548F7860050F9A5 /* ExploreImagesViewController+UISearchResultsUpdating.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A4589E2548F7860050F9A5 /* ExploreImagesViewController+UISearchResultsUpdating.swift */; };
 		F3E4F2F52545F10C00267661 /* ExploreImagesViewController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3E4F2F42545F10C00267661 /* ExploreImagesViewController+UICollectionViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +101,8 @@
 		F36AB4C2254550EB008A7D0A /* ExploreImagesModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreImagesModels.swift; sourceTree = "<group>"; };
 		F36AB4C3254550EB008A7D0A /* ExploreImagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreImagesViewController.swift; sourceTree = "<group>"; };
 		F36AB4C4254550EB008A7D0A /* ExploreImagesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreImagesInteractor.swift; sourceTree = "<group>"; };
+		F3A458982548F53B0050F9A5 /* SuggestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsTableViewController.swift; sourceTree = "<group>"; };
+		F3A4589E2548F7860050F9A5 /* ExploreImagesViewController+UISearchResultsUpdating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExploreImagesViewController+UISearchResultsUpdating.swift"; sourceTree = "<group>"; };
 		F3E4F2F42545F10C00267661 /* ExploreImagesViewController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExploreImagesViewController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -227,6 +231,7 @@
 				F36AB48825445E37008A7D0A /* AppDelegate.swift */,
 				F36AB48A25445E37008A7D0A /* SceneDelegate.swift */,
 				F36AB4BE25454F8F008A7D0A /* ExploreImagesScene */,
+				F3A458972548F5060050F9A5 /* SuggestionsTableViewController */,
 				F349B3932548D54C00E3BF08 /* ExploreImagesDetailScene */,
 				F349B35E2548383A00E3BF08 /* Networking */,
 				F338E7BB2547F5A0006EAE72 /* Views */,
@@ -265,9 +270,18 @@
 				F36AB4C2254550EB008A7D0A /* ExploreImagesModels.swift */,
 				F36AB4C3254550EB008A7D0A /* ExploreImagesViewController.swift */,
 				F3E4F2F42545F10C00267661 /* ExploreImagesViewController+UICollectionViewDelegate.swift */,
+				F3A4589E2548F7860050F9A5 /* ExploreImagesViewController+UISearchResultsUpdating.swift */,
 				F36AB4C4254550EB008A7D0A /* ExploreImagesInteractor.swift */,
 			);
 			path = ExploreImagesScene;
+			sourceTree = "<group>";
+		};
+		F3A458972548F5060050F9A5 /* SuggestionsTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				F3A458982548F53B0050F9A5 /* SuggestionsTableViewController.swift */,
+			);
+			path = SuggestionsTableViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,6 +418,7 @@
 				F36AB4CA254550EB008A7D0A /* ExploreImagesInteractor.swift in Sources */,
 				F36AB4C9254550EB008A7D0A /* ExploreImagesViewController.swift in Sources */,
 				F36AB4C5254550EB008A7D0A /* ExploreImagesPresenter.swift in Sources */,
+				F3A458992548F53B0050F9A5 /* SuggestionsTableViewController.swift in Sources */,
 				F349B39C2548D58700E3BF08 /* ExploreImagesDetailRouter.swift in Sources */,
 				F3E4F2F52545F10C00267661 /* ExploreImagesViewController+UICollectionViewDelegate.swift in Sources */,
 				F349B39E2548D58700E3BF08 /* ExploreImagesDetailViewController.swift in Sources */,
@@ -421,6 +436,7 @@
 				F349B39D2548D58700E3BF08 /* ExploreImagesDetailModels.swift in Sources */,
 				F36AB4C8254550EB008A7D0A /* ExploreImagesModels.swift in Sources */,
 				F349B3A62548DA4400E3BF08 /* ImageDetailCollectionViewCell.swift in Sources */,
+				F3A4589F2548F7860050F9A5 /* ExploreImagesViewController+UISearchResultsUpdating.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

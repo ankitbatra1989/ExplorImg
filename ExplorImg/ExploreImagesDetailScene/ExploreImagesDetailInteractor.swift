@@ -36,8 +36,8 @@ class ExploreImagesDetailInteractor: ExploreImagesDetailBusinessLogic, ExploreIm
         }
         if let imageURLString = imageData?.largeImageURL, !imageURLString.isEmpty {
             worker?.startOperationsForImage(imageUrl: imageURLString, indexPath: indexPath as NSIndexPath, { [weak self, weak imageData] (isDownloadComplete) in
-                    print(isDownloadComplete)
                     if isDownloadComplete {
+                        print("Large ImageDownload Complete for index \(indexPath.item)")
                         imageData?.largeImageState = .Downloaded
                         self?.presenter?.reloadItems(at: [indexPath])
                     }
