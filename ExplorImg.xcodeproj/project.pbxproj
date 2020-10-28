@@ -287,8 +287,6 @@
 			dependencies = (
 			);
 			name = ExplorImg;
-			packageProductDependencies = (
-			);
 			productName = ExplorImg;
 			productReference = F36AB48525445E37008A7D0A /* ExplorImg.app */;
 			productType = "com.apple.product-type.application";
@@ -360,8 +358,6 @@
 				Base,
 			);
 			mainGroup = F36AB47C25445E37008A7D0A;
-			packageReferences = (
-			);
 			productRefGroup = F36AB48625445E37008A7D0A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
